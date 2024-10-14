@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Introduction to C++</title>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="css/slides-extended.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+    <link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+    <script type="text/javascript">
+        function pageInIframe() {
+            return (window.location !== window.parent.location);
+        }
+
+        let forgetPop = true;
+        function onPopState(event) {
+            if(forgetPop){
+                forgetPop = false;
+            } else if( pageInIframe()) {
+                parent.postMessage(event.target.location.href, "app://obsidian.md");
+            }
+        }
+        window.onpopstate = onPopState;
+        window.onmessage = event => {
+            if(event.data == "reload"){
+                window.document.location.reload();
+            }
+            forgetPop = true;
+        }
+
+        function fitElements() {
+            const itemsToFit = document.getElementsByClassName('fitText');
+            for (const item in itemsToFit) {
+                if (Object.hasOwnProperty.call(itemsToFit, item)) {
+                    const element = itemsToFit[item];
+                    fitElement(element, 1, 1000);
+                    element.classList.remove('fitText');
+                }
+            }
+        }
+
+        function fitElement(element, start, end) {
+
+            let size = (end + start) / 2;
+            element.style.fontSize = `${size}px`;
+
+            if (Math.abs(start - end) < 1) {
+                while (element.scrollHeight > element.offsetHeight) {
+                    size--;
+                    element.style.fontSize = `${size}px`;
+                }
+                return;
+            }
+
+            if (element.scrollHeight > element.offsetHeight) {
+                fitElement(element, start, size);
+            } else {
+                fitElement(element, size, end);
+            }
+        }
+
+
+        document.onreadystatechange = () => {
+            fitElements();
+            if (document.readyState === 'complete') {
+                if (pageInIframe() && window.location.href.indexOf("?export") != -1){
+                    parent.postMessage(event.target.location.href, "app://obsidian.md");
+                }
+                if (window.location.href.indexOf("print-pdf") != -1){
+                    let stateCheck = setInterval(() => {
+                        clearInterval(stateCheck);
+                        window.print();
+                    }, 250);
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Whatis C++?
+
+- **C++** is a powerful, high-performance programming language.
+- It is an extension of **C** and includes object-oriented features.
+- Used in system programming, game development, and more.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> #### Key Features:
+- Compiled language
+- Statically and Weakly typed
+- Supports both procedural and object-oriented programming
+- Memory management (manual control)
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Variables in C++
+
+- A **variable** is a storage location, with a specific data type, that holds a value.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> ### Example:
+
+```cpp
+int age = 25;
+double salary = 50000.5;
+
+```
+
+
+- Variables can be used to store and manipulate data throughout a program.
+- Naming rules:
+    - Must start with a letter or underscore (_)
+    - Case-sensitive
+    - Cannot use keywords (like `int`, `return`)
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Data Types in C++
+
+C++ provides several data types to define the nature of the variables:
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Basic Data Types:
+
+- **int**: For integers (whole numbers).
+- **float**: For floating-point numbers (decimal values).
+- **double**: For larger floating-point numbers.
+- **char**: For single characters.
+- **bool**: For true/false values.
+
+[cppreference](https://en.cppreference.com/)
+
+<br>
+
+> >### Example:
+
+```cpp
+int score = 100; 
+float price = 19.99; 
+char grade = 'A'; 
+bool passed = true;
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Conditions in C++
+
+- **Conditions** allow your program to make decisions based on certain criteria.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> ### Example:
+
+
+```cpp
+if (age >= 18) {     
+	std::cout << "You are an adult."; 
+} else {     
+	std::cout << "You are a minor."; 
+}
+```
+
+- Use **`if`**, **`else if`**, and **`else`** to control the flow of your program.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Switch Statement in C++
+
+- The **`switch`** statement allows you to choose between multiple options based on the value of an expression.
+
+- It's useful when you have many `if-else` conditions based on a single variable.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> ### Example:
+
+```cpp
+int day = 3;
+switch (day) {
+    case 1:
+        std::cout << "Monday";
+        break;
+    case 2:
+        std::cout << "Tuesday";
+        break;
+    case 3:
+        std::cout << "Wednesday";
+        break;
+    default:
+        std::cout << "Invalid day";
+        break;
+}
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Loops in C++
+
+- **Loops** allow you to repeat a block of code multiple times.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> ### Example:
+
+```cpp
+for (int i = 0; i < 5; i++) {
+	std::cout << i << " "; 
+}
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+> ### Example:
+
+```cpp
+int i = 0; 
+while (i < 5) {     
+	std::cout << i << " ";     
+	i++; 
+}
+```
+
+- Use **`for`**, **`while`**, and **`do-while`** loops to iterate over ranges of values.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Summary
+
+### Today we learned:
+
+1. What is C++
+2. Variables and data types
+3. How to use conditions in C++
+4. Looping structures in C++
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" template="" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 1000px; width: 960px; min-height: 1000px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Thank You
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/mermaid/mermaid.js"></script>
+    <script src="plugin/chart/chart.min.js"></script>
+    <script src="plugin/chart/plugin.js"></script>
+    <script src="plugin/menu/menu.js"></script>
+    <script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+        function extend() {
+            const target = {};
+            for (let i = 0; i < arguments.length; i++) {
+                const source = arguments[i];
+                for (const key in source) {
+                    if (source.hasOwnProperty(key)) {
+                        target[key] = source[key];
+                    }
+                }
+            }
+            return target;
+        }
+
+        function isLight(color) {
+            let hex = color.replace('#', '');
+
+            // convert #fff => #ffffff
+            if (hex.length == 3) {
+                hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+            }
+
+            const c_r = parseInt(hex.substr(0, 2), 16);
+            const c_g = parseInt(hex.substr(2, 2), 16);
+            const c_b = parseInt(hex.substr(4, 2), 16);
+            const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+            return brightness > 155;
+        }
+
+        const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+
+        if (isLight(bgColor)) {
+            document.body.classList.add('has-light-background');
+        } else {
+            document.body.classList.add('has-dark-background');
+        }
+
+        // default options to init reveal.js
+        const defaultOptions = {
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'default', // none/fade/slide/convex/concave/zoom
+            plugins: [
+                RevealMarkdown,
+                RevealHighlight,
+                RevealZoom,
+                RevealNotes,
+                RevealMath.MathJax3,
+                RevealMermaid,
+                RevealChart,
+                RevealCustomControls,
+                RevealMenu,
+            ],
+            allottedTime: 120 * 1000,
+            mathjax3: {
+                mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+            },
+            markdown: {
+                gfm: true,
+                mangle: true,
+                pedantic: false,
+                smartLists: false,
+                smartypants: false,
+            },
+            mermaid: {
+                theme: isLight ? 'default' : 'dark',
+            },
+            customcontrols: {
+                controls: [
+                    {
+                        id: 'toggle-overview',
+                        title: 'Toggle overview (O)',
+                        icon: '<i class="fa fa-th"></i>',
+                        action: 'Reveal.toggleOverview();'
+                    },
+                ]
+            },
+            menu: {
+                loadIcons: false
+            }
+        };
+
+        if ( pageInIframe() ) {
+            defaultOptions.scrollActivationWidth = 5;
+        }
+
+        // options from URL query string
+        const queryOptions = Reveal().getQueryHash() || {};
+
+        const options = extend(defaultOptions, {"controls":true,"progress":true,"slideNumber":true,"center":true,"transition":"slide","transitionSpeed":"normal","width":960,"height":1000,"margin":0.04,"maxScale":2}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+</body>
+
+<!-- created with Slides Extended -->
+</html>
